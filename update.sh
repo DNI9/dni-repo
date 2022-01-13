@@ -1,5 +1,18 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+set -euo pipefail
 
 cd x86_64
-repo-add -n -R dni9-repo.db.tar.gz *.pkg.tar.zst
-find . -type f -name "*.old" -delete
+rm -f dni9-repo*
+
+repo-add -s -n -R dni9-repo.db.tar.gz *.pkg.tar.zst
+
+rm dni9-repo.db
+rm dni9-repo.db.sig
+rm dni9-repo.files
+rm dni9-repo.files.sig
+
+mv dni9-repo.db.tar.gz dni9-repo.db
+mv dni9-repo.db.tar.gz.sig dni9-repo-db.sig
+mv dni9-repo.files.tar.gz dni9-repo.files
+mv dni9-repo.files.tar.gz.sig dni9-repo.files.sig
